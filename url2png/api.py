@@ -31,7 +31,7 @@ def calc_height(thumb_width, viewport):
 
 def make_api_url(url, viewport=DEFAULT_VIEWPORT, fullpage=DEFAULT_FULLPAGE,
                  thumbnail_max_width=DEFAULT_THUMBNAIL_MAX_WIDTH):
-    url = urlencode(url, '')
+    url = urlencode(url)
     options = non_default_options(url, viewport, fullpage, thumbnail_max_width)
     token = hashlib.md5('?%s%s' % (options, SECRET_KEY)).hexdigest()
     result = '/'.join((API_URL, API_KEY, token, 'png/?%s' % options))

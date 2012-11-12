@@ -1,8 +1,8 @@
 import hashlib
-from django.template.defaultfilters import urlencode
 
 from url2png.settings import (API_KEY, SECRET_KEY, API_URL, DEFAULT_VIEWPORT,
-                              DEFAULT_FULLPAGE, DEFAULT_THUMBNAIL_MAX_WIDTH)
+                              DEFAULT_FULLPAGE, DEFAULT_THUMBNAIL_MAX_WIDTH,
+                              THUMBNAIL_MAX_WIDTH, VIEWPORT, FULLPAGE)
 
 def non_default_options(url, viewport=DEFAULT_VIEWPORT, fullpage=DEFAULT_FULLPAGE,
                         thumbnail_max_width=DEFAULT_THUMBNAIL_MAX_WIDTH):
@@ -29,9 +29,8 @@ def calc_height(thumb_width, viewport):
     return int(height * ratio)
 
 
-def make_api_url(url, viewport=DEFAULT_VIEWPORT, fullpage=DEFAULT_FULLPAGE,
-                 thumbnail_max_width=DEFAULT_THUMBNAIL_MAX_WIDTH):
-    url = urlencode(url)
+def make_api_url(url, viewport=VIEWPORT, fullpage=FULLPAGE,
+                 thumbnail_max_width=THUMBNAIL_MAX_WIDTH):
     options = non_default_options(url, viewport, fullpage, thumbnail_max_width)
     token = hashlib.md5('?%s%s' % (options, SECRET_KEY)).hexdigest()
     result = '/'.join((API_URL, API_KEY, token, 'png/?%s' % options))

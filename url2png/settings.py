@@ -1,0 +1,19 @@
+from django.conf import settings
+
+DEFAULT_VIEWPORT = '1280x1024'
+DEFAULT_FULLPAGE = False
+DEFAULT_THUMBNAIL_MAX_WIDTH = None
+
+DEFAULT_SETTINGS = {
+    'API_KEY': None,
+    'SECRET_KEY': None,
+    'API_URL': 'http://beta.url2png.com/v6',
+    'VIEWPORT': DEFAULT_VIEWPORT,
+    'FULLPAGE': DEFAULT_FULLPAGE,
+    'THUMBNAIL_MAX_WIDTH': DEFAULT_THUMBNAIL_MAX_WIDTH,
+}
+
+USER_SETTINGS = DEFAULT_SETTINGS.copy()
+USER_SETTINGS.update(getattr(settings, 'URL2PNG_SETTINGS'))
+
+globals().update(USER_SETTINGS)
